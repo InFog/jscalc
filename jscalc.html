@@ -2,9 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<link rel="stylesheet" type="text/css" href="css/global.css" />
 
-	<title>Calculadora em Javascript</title>
+	<title>JSCalc - Calculadora em Javascript</title>
 	
 	<script language="javascript">
 
@@ -12,10 +11,10 @@
 	* JSCalc, calculadora em Javascript
 	*
 	* Fork desenvolvido por:
-	*	- InFog - Evaldo Junior (http://infog.casoft.info) <junior_pd_bento@yahoo.com.br>
+	*	- InFog - Evaldo Junior (http://infog.casoft.info) <junior_pd_bento "@' yahoo . com . br>
 	*
 	* A JSCalc é baseada na CALC-JS
-	* desenvolvida pelo Peterson <peterson770@hotmail.com>
+	* desenvolvida pelo Peterson <peterson770 "@' hotmail . com>
 	*
 	* A CALC-JS desenvolvida pelo Peterson já tinha
 	* um bom mapa de imagem, por isso fiz um fork,
@@ -30,7 +29,7 @@
 	* o input de texto.
 	*
 	* Este software é licenciado sobre a GPLv3
-	* Uma cópia da licença foi distrbuída com esta código
+	* Uma cópia da licença está no arquivo licenca.txt
 	* Este software não tem garantias, use por conta e risco.
 	*
 	* Versão 0.1 - 21/09/2008
@@ -45,62 +44,47 @@
 	*	- Adicionada variável MEM1, que conterá o que estava no visor antes de usar alguma operação.
 	*	- Adicionada variável OPERADOR.
 	*	- Alterada a função recebe_tecla() para que trabalhe com switch e não um monte de if aninhado.
-	*	- Adicionada a função executa_funcao(), por enquanto ela tem apenas comentários de como deve funcionar
-	*	- Adicionada a função add_ponto() também apenas com comentários
-	*	- Adicionada a função add_operador() também apenas com comentários
-	*	- Removida a verificação do operador na função add_visor();
-	*	- Removida a função continhas();
+	*	- Adicionada a função executa_funcao(), por enquanto ela tem apenas comentários de como deve funcionar.
+	*	- Adicionada a função add_ponto() também apenas com comentários.
+	*	- Adicionada a função add_operador() também apenas com comentários.
+	*	- Removida a verificação do operador na função add_visor().
+	*	- Removida a função continhas().
 	*	- Removido o site que tinha ao redor da calculador, deixei apenas o código dela, assim fica mais simples
 	*	  para embuutila em algum outro site.
 	*	- Crei um projeto no google code e hospedei a JSCalc, http://code.google.com/p/jscalc/
+	*
+	* Versão 0.3 - 22/09/2008
+	*	- Removido diretório css e o arquivo de css.
+	*	- Criado o diretório imagens para colocar as imagens dos números.
+	*	- Movida a imagem calc.jpg para o diretório imagens.
+	*	- Arquivo calculadora.html renomeado para jscalc.html.
+	*	- Removidas chamadas ao arquivo de css.
+	*	- Div mainContent renomeado para principal.
+	*	- Percebi que a função recebe_tecla() é inútil e comecei a remove-la.
+	*	- Removida a função resultado_final().
+	*	- Implementado um beta da função calcula_resultado().
+	*	- Alterado o asterisco (*) para x na tecla de multiplcação (dava uns erros com *)
+	*	- Adicionada a função botao_on_ac() que limpa as variáveis e o visor.
+	*	- Removida a função checa_operando().
+	*	- Alterado o título da página para "JSCalc - Calculadora em Javascript".
 	* 
 	******************************************************/
 
-	var VERSAO = "0.2";
+	var VERSAO = "0.3";
 	var VISOR = "0"; // iniciando o visor como 0
 	var MEM1 = "0"; // variável que contém o que estava no visor antes de usar uma tecla de operação.
 	var OPERADOR = ""; // variável com o operador (+, -, / ou *)
 	
 	function recebe_tecla(tecla)
 	{
+		/*********************
+		* Esta função é inútil, é melhor chamar as funções direto nas "teclas" da calculadora"
+		*********************/
 		switch (tecla)
 		{
 			case "raiz":
 				executa_funcao("raiz");
 			break;
-			case "0":
-	                        add_visor("0");
-	                break;
-			case "1":
-				add_visor("1");
-			break;
-			case "2":
-				add_visor("2");
-			break;
-			case "3":
-				add_visor("3");
-			break;
-			case "4":
-				add_visor("4")
-			break;
-			case "5":
-				add_visor("5");
-			break;
-			case "6":
-				add_visor("6");
-			break;
-			case "7":
-	                        add_visor("7");
-	                break;
-	                case "8":
-	                        add_visor("8");
-	                break;
-	                case "9":
-	                        add_visor("9");
-	                break;
-			case ".":
-	                        add_ponto();
-	                break;
 			case "=":
 	                        calcula_resultado();
 	                break;
@@ -113,8 +97,8 @@
 			case "/":
 	                        add_operador("/");
 	                break;
-			case "*":
-	                        add_operador("*");
+			case "x":
+	                        add_operador("x");
 	                break;
 			case "+":
 	                        add_operador("+");
@@ -143,7 +127,7 @@
                 *******************************************/
 	}
 
-	function add_operador(operador)
+	function add_operador(oper)
 	{
 		/*******************************************
                 * Esta função adiciona um operador,
@@ -152,6 +136,10 @@
 		* Ainda não tenho muita ideia de como ela
 		* vai funcionar.
                 *******************************************/
+		MEM1 = VISOR;
+		VISOR = "0";
+		OPERADOR = oper;
+		atualiza_visor();
 	}
 
 	function add_visor(valor)
@@ -168,29 +156,6 @@
 		atualiza_visor();			
 	}
 
-		
-	function checa_operando(x) 
-	{
-		switch (x)
-		{
-			case "+":
-				cont = 1;
-			break;
-			case "-":
-				cont = 2;
-			break;
-			case "*":
-				cont = 3;
-			break;
-			case "/":
-				cont = 4;
-			break;
-			case "=":
-				resultado_final();
-			break;
-		}
-	}
-
 	function atualiza_visor()
 	{
 		document.getElementById('vis').value = VISOR;	
@@ -202,45 +167,65 @@
 		atualiza_visor();		
 	}
 
-	function resultado_final()
-	{			
-		if (cont == 1)
-		{
-			resultado = eval(document.getElementById('vis').value );
-		}
-		VISOR = resultado;
+	function botao_on_ac()
+	{
+		/*********************************
+		* Esta função reinicia todas as
+		* variáveis e limpa o visor
+		*********************************/
+		VISOR = "0";
+		MEM1 = "0";
+		OPERADOR = "";
+		limpa_visor();
+	}
+
+	function calcula_resultado()
+	{
+		/*********************************
+		* Esta função calcula o resultado
+		* esta função ainda é bem beta
+		*********************************/
+		if (OPERADOR == "x")
+			OPERADOR = '*';
+		var RESULTADO = eval(MEM1 + OPERADOR + VISOR);
+		VISOR = RESULTADO;
 		atualiza_visor();
-		cont = 0;		
-	}		
+	}
 	</script>
 </head>
 <body>
-	<div id="mainContent">
+	<div id="principal">
 		<div id="calculadora" name="calculadora">
 			<!-- Este é o DIV do visor da calculadorazinha =] -->
 			<div id="visor-calc" name="calc">
-			<input type="text" id="vis" name="vis"/>
-		</div>
+				<!--
+					Por enquanto vou deixar este input mesmo,
+					a utilização das imagens com números será depois
+					primeiro farei a logica dos calculos.
+				-->
+				<input type="text" id="vis" name="vis" style="text-align: right;"/>
+			</div><!-- visor-calc -->
+		</div><!-- calculadora -->
 		
 		<!-- E este é o mapeamento da calculadora e cada mapeamento chama a função alerta -->
-		<img src ="calc.jpg" width ="220" height ="300" border="0" usemap ="#calcmap"  />
+		<img src ="imagens/calc.jpg" width ="220" height ="300" border="0" usemap ="#calcmap"  />
 		<map id ="calcmap" name="calcmap">
 			<area shape ="rect" coords ="40,120,60,138" onclick="recebe_tecla('raiz')" /> 
-			<area shape ="rect" coords ="40,145,60,163" onclick="recebe_tecla('7')" />
-			<area shape ="rect" coords ="40,175,60,193" onclick="recebe_tecla('4')" /> 
-			<area shape ="rect" coords ="40,210,60,230" onclick="recebe_tecla('1')"  /> 	
-			<area shape ="rect" coords ="40,250,60,260" onclick="recebe_tecla('0')"  />
+			<area shape ="rect" coords ="40,145,60,163" onclick="add_visor('7')" />
+			<area shape ="rect" coords ="40,175,60,193" onclick="add_visor('4')" /> 
+			<area shape ="rect" coords ="40,210,60,230" onclick="add_visor('1')"  /> 	
+			<area shape ="rect" coords ="40,250,60,260" onclick="add_visor('0')"  />
 
 			<area shape ="rect" coords ="80,120,100,138" onclick="recebe_tecla('%')" />
-			<area shape ="rect" coords ="80,145,100,163" onclick="recebe_tecla('8')" />
-			<area shape ="rect" coords ="80,175,100,193" onclick="recebe_tecla('5')" />
-			<area shape ="rect" coords ="80,210,100,230" onclick="recebe_tecla('2')" />
-			<area shape ="rect" coords ="80,250,100,260" onclick="recebe_tecla('.')"  />
+			<area shape ="rect" coords ="80,145,100,163" onclick="add_visor('8')" />
+			<area shape ="rect" coords ="80,175,100,193" onclick="add_visor('5')" />
+			<area shape ="rect" coords ="80,210,100,230" onclick="add_visor('2')" />
+			<area shape ="rect" coords ="80,250,100,260" onclick="add_ponto('.')"  />
 
 			<area shape ="rect" coords ="120,120,140,138" onclick="recebe_tecla('away')"  />
-			<area shape ="rect" coords ="120,145,140,163" onclick="recebe_tecla('9')"  />
-			<area shape ="rect" coords ="120,175,140,193" onclick="recebe_tecla('6')"  />
-			<area shape ="rect" coords ="120,210,140,230" onclick="recebe_tecla('3')"  />
+			<area shape ="rect" coords ="120,145,140,163" onclick="add_visor('9')"  />
+			<area shape ="rect" coords ="120,175,140,193" onclick="add_visor('6')"  />
+			<area shape ="rect" coords ="120,210,140,230" onclick="add_visor('3')"  />
 			<area shape ="rect" coords ="115,245,140,260" onclick="recebe_tecla('=')" />
 
 			<area shape ="rect" coords ="160,120,180,138" onclick="recebe_tecla('/')"  />
@@ -248,10 +233,12 @@
 			<area shape ="rect" coords ="160,175,180,193" onclick="recebe_tecla('-')"  />
 			<area shape ="rect" coords ="160,210,180,260" onclick="recebe_tecla('+')"  />
 
-			<area shape ="rect" coords ="130,85,180,100" onclick="recebe_tecla('clear')" />
+			<area shape ="rect" coords ="130,85,180,100" onclick="botao_on_ac()" />
 		</map>
-		Que a gra&ccedil;a do nosso SENHOR JESUS esteja com todos. 
-	</div>
+		<span style="font-size: 0.5em;">
+		Que a gra&ccedil;a do nosso SENHOR JESUS esteja com todos.
+		</span>
+	</div><!-- principal -->
 	<script language="javascript">
 		atualiza_visor();
 	</script>
