@@ -67,47 +67,17 @@
 	*	- Adicionada a função botao_on_ac() que limpa as variáveis e o visor.
 	*	- Removida a função checa_operando().
 	*	- Alterado o título da página para "JSCalc - Calculadora em Javascript".
+	*
+	* Versão 0.4 - 23/09/2008
+	*	- Função recebe_tecla() totalmente eliminada.
+	*	- Implementada a função de raiz quadrada.
 	* 
 	******************************************************/
 
 	var VERSAO = "0.3";
 	var VISOR = "0"; // iniciando o visor como 0
 	var MEM1 = "0"; // variável que contém o que estava no visor antes de usar uma tecla de operação.
-	var OPERADOR = ""; // variável com o operador (+, -, / ou *)
-	
-	function recebe_tecla(tecla)
-	{
-		/*********************
-		* Esta função é inútil, é melhor chamar as funções direto nas "teclas" da calculadora"
-		*********************/
-		switch (tecla)
-		{
-			case "raiz":
-				executa_funcao("raiz");
-			break;
-			case "=":
-	                        calcula_resultado();
-	                break;
-			case "+":
-	                        add_operador("+");
-	                break;
-			case "-":
-	                        add_operador("-");
-	                break;
-			case "/":
-	                        add_operador("/");
-	                break;
-			case "x":
-	                        add_operador("x");
-	                break;
-			case "+":
-	                        add_operador("+");
-	                break;
-			case "limpa":
-				limpa_visor();
-			break;
-		}
-	}
+	var OPERADOR = ""; // variável com o operador (+, -, / ou *)	
 		
 	function executa_funcao(funcao)
 	{
@@ -117,6 +87,13 @@
 		* Funções disponíveis:
 		*	- raiz (extrai a raiz do número no visor)
 		*******************************************/
+		switch (funcao)
+		{
+			case 'raiz':
+				VISOR = eval('Math.sqrt(' + VISOR + ')');
+			break;
+		}
+		atualiza_visor();
 	}
 
 	function add_ponto()
@@ -210,7 +187,7 @@
 		<!-- E este é o mapeamento da calculadora e cada mapeamento chama a função alerta -->
 		<img src ="imagens/calc.jpg" width ="220" height ="300" border="0" usemap ="#calcmap"  />
 		<map id ="calcmap" name="calcmap">
-			<area shape ="rect" coords ="40,120,60,138" onclick="recebe_tecla('raiz')" /> 
+			<area shape ="rect" coords ="40,120,60,138" onclick="executa_funcao('raiz')" /> 
 			<area shape ="rect" coords ="40,145,60,163" onclick="add_visor('7')" />
 			<area shape ="rect" coords ="40,175,60,193" onclick="add_visor('4')" /> 
 			<area shape ="rect" coords ="40,210,60,230" onclick="add_visor('1')"  /> 	
@@ -226,12 +203,12 @@
 			<area shape ="rect" coords ="120,145,140,163" onclick="add_visor('9')"  />
 			<area shape ="rect" coords ="120,175,140,193" onclick="add_visor('6')"  />
 			<area shape ="rect" coords ="120,210,140,230" onclick="add_visor('3')"  />
-			<area shape ="rect" coords ="115,245,140,260" onclick="recebe_tecla('=')" />
+			<area shape ="rect" coords ="115,245,140,260" onclick="calcula_resultado()" />
 
-			<area shape ="rect" coords ="160,120,180,138" onclick="recebe_tecla('/')"  />
-			<area shape ="rect" coords ="160,145,180,163" onclick="recebe_tecla('x')"  />
-			<area shape ="rect" coords ="160,175,180,193" onclick="recebe_tecla('-')"  />
-			<area shape ="rect" coords ="160,210,180,260" onclick="recebe_tecla('+')"  />
+			<area shape ="rect" coords ="160,120,180,138" onclick="add_operador('/')"  />
+			<area shape ="rect" coords ="160,145,180,163" onclick="add_operador('x')"  />
+			<area shape ="rect" coords ="160,175,180,193" onclick="add_operador('-')"  />
+			<area shape ="rect" coords ="160,210,180,260" onclick="add_operador('+')"  />
 
 			<area shape ="rect" coords ="130,85,180,100" onclick="botao_on_ac()" />
 		</map>
