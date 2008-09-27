@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<link rel="stylesheet" href="calc.css" type="text/css" media="all" />
 
 	<title>JSCalc - Calculadora em Javascript</title>
 	
@@ -25,8 +26,10 @@
 	*
 	* Por que fazer um fork?
 	* Quero fazer um visor com os digitos no estilo
-	* de calculadoras mesmo, mas por enquanto vou usar
-	* o input de texto.
+	* de calculadoras reais.
+	* Outro motivo é deixar um código bem comentado
+	* já que a versão original não tinha quase nada
+	* para ajudar a entender o código.
 	*
 	* Este software é licenciado sobre a GPLv3
 	* Uma cópia da licença está no arquivo licenca.txt
@@ -71,6 +74,12 @@
 	* Versão 0.4 - 23/09/2008
 	*	- Função recebe_tecla() totalmente eliminada.
 	*	- Implementada a função de raiz quadrada.
+	*
+	* Versão 0.5 - 27/09/2008
+	*	- Imagem da calculadora dividida em 3 partes (topo, visor e teclas).
+	*	- Adicionada formatação CSS (arquivo calc.css) para que a imagem pareça uma só.
+	*	- Mapa de imagem totalmente remodelado para a noma imagem (calc_bottom.jpg).
+	*	- JSCalc testada com sucesso no Firefox 3.0.2, Opera 9.51 e Internet Explorer 6.
 	* 
 	******************************************************/
 
@@ -173,44 +182,43 @@
 <body>
 	<div id="principal">
 		<div id="calculadora" name="calculadora">
+			<div id="topo">	
+			</div><!-- topo -->
 			<!-- Este é o DIV do visor da calculadorazinha =] -->
-			<div id="visor-calc" name="calc">
-				<!--
-					Por enquanto vou deixar este input mesmo,
-					a utilização das imagens com números será depois
-					primeiro farei a logica dos calculos.
-				-->
-				<input type="text" id="vis" name="vis" style="text-align: right;"/>
-			</div><!-- visor-calc -->
+			<div id="visor" name="visor">
+				<input type="text" id="vis">
+			</div><!-- visor -->
+			<div id="teclas">
+				<img src ="imagens/calc_bottom.jpg" usemap="#calcmap"/>
+			</div><!-- teclas -->
 		</div><!-- calculadora -->
 		
-		<!-- E este é o mapeamento da calculadora e cada mapeamento chama a função alerta -->
-		<img src ="imagens/calc.jpg" width ="220" height ="300" border="0" usemap ="#calcmap"  />
-		<map id ="calcmap" name="calcmap">
-			<area shape ="rect" coords ="40,120,60,138" onclick="executa_funcao('raiz')" /> 
-			<area shape ="rect" coords ="40,145,60,163" onclick="add_visor('7')" />
-			<area shape ="rect" coords ="40,175,60,193" onclick="add_visor('4')" /> 
-			<area shape ="rect" coords ="40,210,60,230" onclick="add_visor('1')"  /> 	
-			<area shape ="rect" coords ="40,250,60,260" onclick="add_visor('0')"  />
+		<!-- E este é o mapeamento da calculadora -->
+		<map id="calcmap" name="calcmap">
+			<area shape ="rect" coords ="44,53,78,77" onclick="executa_funcao('raiz')" /> 
+			<area shape ="rect" coords ="44,89,78,113" onclick="add_visor('7')" />
+			<area shape ="rect" coords ="44,125,78,149" onclick="add_visor('4')" /> 
+			<area shape ="rect" coords ="44,161,78,187" onclick="add_visor('1')"  /> 	
+			<area shape ="rect" coords ="44,200,78,222" onclick="add_visor('0')"  />
 
-			<area shape ="rect" coords ="80,120,100,138" onclick="recebe_tecla('%')" />
-			<area shape ="rect" coords ="80,145,100,163" onclick="add_visor('8')" />
-			<area shape ="rect" coords ="80,175,100,193" onclick="add_visor('5')" />
-			<area shape ="rect" coords ="80,210,100,230" onclick="add_visor('2')" />
-			<area shape ="rect" coords ="80,250,100,260" onclick="add_ponto('.')"  />
+			<area shape ="rect" coords ="90,53,125,77" onclick="recebe_tecla('%')" />
+			<area shape ="rect" coords ="90,89,125,113" onclick="add_visor('8')" />
+			<area shape ="rect" coords ="90,125,125,149" onclick="add_visor('5')" />
+			<area shape ="rect" coords ="90,161,125,187" onclick="add_visor('2')" />
+			<area shape ="rect" coords ="90,200,125,222" onclick="add_ponto('.')"  />
 
-			<area shape ="rect" coords ="120,120,140,138" onclick="recebe_tecla('away')"  />
-			<area shape ="rect" coords ="120,145,140,163" onclick="add_visor('9')"  />
-			<area shape ="rect" coords ="120,175,140,193" onclick="add_visor('6')"  />
-			<area shape ="rect" coords ="120,210,140,230" onclick="add_visor('3')"  />
-			<area shape ="rect" coords ="115,245,140,260" onclick="calcula_resultado()" />
+			<area shape ="rect" coords ="138,53,175,77" onclick="recebe_tecla('away')"  />
+			<area shape ="rect" coords ="138,89,175,113" onclick="add_visor('9')"  />
+			<area shape ="rect" coords ="138,125,175,149" onclick="add_visor('6')"  />
+			<area shape ="rect" coords ="138,161,175,187" onclick="add_visor('3')"  />
+			<area shape ="rect" coords ="138,200,175,222" onclick="calcula_resultado()" />
 
-			<area shape ="rect" coords ="160,120,180,138" onclick="add_operador('/')"  />
-			<area shape ="rect" coords ="160,145,180,163" onclick="add_operador('x')"  />
-			<area shape ="rect" coords ="160,175,180,193" onclick="add_operador('-')"  />
-			<area shape ="rect" coords ="160,210,180,260" onclick="add_operador('+')"  />
+			<area shape ="rect" coords ="187,53,223,77" onclick="add_operador('/')"  />
+			<area shape ="rect" coords ="187,89,223,113" onclick="add_operador('x')"  />
+			<area shape ="rect" coords ="187,125,223,149" onclick="add_operador('-')"  />
+			<area shape ="rect" coords ="187,161,223,222" onclick="add_operador('+')"  />
 
-			<area shape ="rect" coords ="130,85,180,100" onclick="botao_on_ac()" />
+			<area shape ="rect" coords ="152,15,223,43" onclick="botao_on_ac()" />
 		</map>
 		<span style="font-size: 0.5em;">
 		Que a gra&ccedil;a do nosso SENHOR JESUS esteja com todos.

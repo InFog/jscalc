@@ -1,0 +1,36 @@
+#visor
+{
+	background-image: url(imagens/calc_visor.jpg);
+	width: 264px;
+	height: 39px;
+	margin: 0px;
+	padding: 0px;
+}
+
+#topo
+{
+        background-image: url(imagens/calc_top.jpg);
+        width: 264px;
+        height: 44px;
+	margin: 0px;
+	padding: 0px;
+}
+
+#teclas
+{
+	width: 264px;
+	margin: 0px;
+	padding: 0px;
+}
+
+#teclas img
+{
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+}
+
+#teclas a
+{
+	border: 0px;
+}
