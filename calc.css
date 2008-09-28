@@ -34,3 +34,13 @@
 {
 	border: 0px;
 }
+
+#display
+{
+	text-align: right;
+	height: 34px;
+	width: 170px;
+	border: 0px;
+	margin: 0px 47px 0px 47px;
+	padding: 5px 0px 0px 0px;
+}

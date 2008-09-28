@@ -80,6 +80,10 @@
 	*	- Adicionada formatação CSS (arquivo calc.css) para que a imagem pareça uma só.
 	*	- Mapa de imagem totalmente remodelado para a noma imagem (calc_bottom.jpg).
 	*	- JSCalc testada com sucesso no Firefox 3.0.2, Opera 9.51 e Internet Explorer 6.
+	*
+	* Versão 0.6 - 28/09/2008
+	*	- Fiz as imagens dos números 0, 1, 2, 3 e 4.
+	*	- Fiz um teste para exibi-los sobre o visor na função atualiza_visor (funcionou).
 	* 
 	******************************************************/
 
@@ -144,7 +148,8 @@
 
 	function atualiza_visor()
 	{
-		document.getElementById('vis').value = VISOR;	
+		var display = '<img src="imagens/2.png">';
+		document.getElementById('display').innerHTML = display;
 	}
 
 	function limpa_visor()
@@ -186,7 +191,9 @@
 			</div><!-- topo -->
 			<!-- Este é o DIV do visor da calculadorazinha =] -->
 			<div id="visor" name="visor">
-				<input type="text" id="vis">
+				<div id="display">
+					<!-- Este div exibe os números -->
+				</div><!-- display -->
 			</div><!-- visor -->
 			<div id="teclas">
 				<img src ="imagens/calc_bottom.jpg" usemap="#calcmap"/>
