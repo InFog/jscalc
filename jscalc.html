@@ -83,11 +83,17 @@
 	*
 	* Versão 0.6 - 28/09/2008
 	*	- Fiz as imagens dos números 0, 1, 2, 3 e 4.
-	*	- Fiz um teste para exibi-los sobre o visor na função atualiza_visor (funcionou).
+	*	- Fiz um teste para exibi-los sobre o visor na função atualiza_visor() (funcionou).
+	*
+	* Versão 0.7 - 03/10/2008
+	*	- Fiz as imagens dos números 5, 6, 7, 8 e 9.
+	*	- Função atualiza_visor() renovada para usar as imagens.
+	*	- Corrigi um bug que não permitia a atualização do visor na função atualiza_visor().
+	*	- Removido o deretório temporário com as imagens dos números.
 	* 
 	******************************************************/
 
-	var VERSAO = "0.3";
+	var VERSAO = "0.7";
 	var VISOR = "0"; // iniciando o visor como 0
 	var MEM1 = "0"; // variável que contém o que estava no visor antes de usar uma tecla de operação.
 	var OPERADOR = ""; // variável com o operador (+, -, / ou *)	
@@ -148,7 +154,19 @@
 
 	function atualiza_visor()
 	{
-		var display = '<img src="imagens/2.png">';
+		/*********************************
+		* Esta função varre a string VISOR
+		* e monta uma string informando quais
+		* imagens devem aparecer no display
+		*********************************/
+		var posicao = 0;
+		var caractere = '';
+		var display = '';
+		for (posicao = 0; posicao < VISOR.length; posicao++)
+		{
+			caractere = VISOR.charAt(posicao);
+			display += '<img src="imagens/'+caractere+'.png">';
+		}
 		document.getElementById('display').innerHTML = display;
 	}
 
@@ -179,7 +197,7 @@
 		if (OPERADOR == "x")
 			OPERADOR = '*';
 		var RESULTADO = eval(MEM1 + OPERADOR + VISOR);
-		VISOR = RESULTADO;
+		VISOR = RESULTADO + '';
 		atualiza_visor();
 	}
 	</script>
