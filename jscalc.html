@@ -90,7 +90,21 @@
 	*	- Função atualiza_visor() renovada para usar as imagens.
 	*	- Corrigi um bug que não permitia a atualização do visor na função atualiza_visor().
 	*	- Removido o deretório temporário com as imagens dos números.
-	* 
+	*
+	* Versão 0.8 - 04/10/2008
+	*	- Corrigido bug na raiz quadrada.
+	*	- Alterada a função atualiza_visor() para sempre encarar VISOR como string.
+	*	- Alterada a CSS para que a calculadora fique centralizada.
+	*	- Criado um rascunho da função muda_sinal().
+	*	- Removida a imagem numeros.jpg (base para os números).
+	*	- Criei a imagem do sinal de menos.
+	*
+	*
+	*
+	****** DESAFIO ******
+	* Implementar RPN (Notação Polonesa Reversa)
+	* http://pt.wikipedia.org/wiki/Notação_polonesa_reversa
+	* Idéia by Kretcheu
 	******************************************************/
 
 	var VERSAO = "0.7";
@@ -121,6 +135,13 @@
                 * Esta função serve para adicionar um ponto
 		* separador de casas decimais ao visor.
                 *******************************************/
+	}
+
+	function muda_sinal()
+	{
+		/*******************************************
+		* Esta função altera o sinal do valor no visor
+		*******************************************/
 	}
 
 	function add_operador(oper)
@@ -159,6 +180,8 @@
 		* e monta uma string informando quais
 		* imagens devem aparecer no display
 		*********************************/
+		// Aqui faço VISOR ser reconhecida como uma string
+		VISOR += '';
 		var posicao = 0;
 		var caractere = '';
 		var display = '';
@@ -197,7 +220,7 @@
 		if (OPERADOR == "x")
 			OPERADOR = '*';
 		var RESULTADO = eval(MEM1 + OPERADOR + VISOR);
-		VISOR = RESULTADO + '';
+		VISOR = RESULTADO;
 		atualiza_visor();
 	}
 	</script>
@@ -232,7 +255,7 @@
 			<area shape ="rect" coords ="90,161,125,187" onclick="add_visor('2')" />
 			<area shape ="rect" coords ="90,200,125,222" onclick="add_ponto('.')"  />
 
-			<area shape ="rect" coords ="138,53,175,77" onclick="recebe_tecla('away')"  />
+			<area shape ="rect" coords ="138,53,175,77" onclick="muda_sinal()"  />
 			<area shape ="rect" coords ="138,89,175,113" onclick="add_visor('9')"  />
 			<area shape ="rect" coords ="138,125,175,149" onclick="add_visor('6')"  />
 			<area shape ="rect" coords ="138,161,175,187" onclick="add_visor('3')"  />
