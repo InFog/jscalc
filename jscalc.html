@@ -102,6 +102,11 @@
 	* Versão 0.9 - 15/10/2008
 	*	- Troquei a cor da calculadora e removi uma imagem que parecia uma marca.
 	*
+	* Versão 0.10 - 16/10/2008
+	*	- Correção: Quando se usa algum sinal o display não zera mais. (Não é assim que uma calculadora trabalha).
+	*	- Correção: Agora o display zera após fazer alguma operação. (Antes ele mantinha o resultado e adicionava os novos dígitos à ele).
+	*	- Adicionada a imagem do ponto.
+	*	- Implementada a utilização do ponto para operações com casas decimais.
 	*
 	*********************** DESAFIO ***********************
 	* Implementar NPR (Notação Polonesa Reversa)
@@ -109,10 +114,12 @@
 	* Idéia by Kretcheu - 04 de outubro de 2008
 	******************************************************/
 
-	var VERSAO = "0.7";
+	var VERSAO = "0.10";
 	var VISOR = "0"; // iniciando o visor como 0
 	var MEM1 = "0"; // variável que contém o que estava no visor antes de usar uma tecla de operação.
-	var OPERADOR = ""; // variável com o operador (+, -, / ou *)	
+	var OPERADOR = ""; // variável com o operador (+, -, / ou *)
+	var APAGA_VISOR = false;
+	var TEM_PONTO = false; // variável que diz que o ponto já foi colocado no visor.
 		
 	function executa_funcao(funcao)
 	{
@@ -137,6 +144,12 @@
                 * Esta função serve para adicionar um ponto
 		* separador de casas decimais ao visor.
                 *******************************************/
+		if (TEM_PONTO == false)
+		{
+			VISOR += '.';
+			atualiza_visor();
+			TEM_PONTO = true;
+		}
 	}
 
 	function muda_sinal()
@@ -158,12 +171,17 @@
 		MEM1 = VISOR;
 		VISOR = "0";
 		OPERADOR = oper;
-		atualiza_visor();
+		TEM_PONTO = false;
+		//atualiza_visor();
 	}
 
 	function add_visor(valor)
 	{
-
+		if (APAGA_VISOR)
+		{
+			VISOR = "0";
+			APAGA_VISOR = false;
+		}
 		if (VISOR == "0")
 		{
 			VISOR = valor;
@@ -190,7 +208,10 @@
 		for (posicao = 0; posicao < VISOR.length; posicao++)
 		{
 			caractere = VISOR.charAt(posicao);
-			display += '<img src="imagens/'+caractere+'.png">';
+			if (caractere == '.')
+				display += '<img src="imagens/ponto.png">';
+			else
+				display += '<img src="imagens/'+caractere+'.png">';
 		}
 		document.getElementById('display').innerHTML = display;
 	}
@@ -198,7 +219,8 @@
 	function limpa_visor()
 	{
 		VISOR = "0";
-		atualiza_visor();		
+		TEM_PONTO = false;
+		atualiza_visor();
 	}
 
 	function botao_on_ac()
@@ -210,6 +232,8 @@
 		VISOR = "0";
 		MEM1 = "0";
 		OPERADOR = "";
+		APAGA_VISOR = false;
+		TEM_PONTO = false;
 		limpa_visor();
 	}
 
@@ -224,6 +248,8 @@
 		var RESULTADO = eval(MEM1 + OPERADOR + VISOR);
 		VISOR = RESULTADO;
 		atualiza_visor();
+		APAGA_VISOR = true;
+		TEM_PONTO = false;
 	}
 	</script>
 </head>
