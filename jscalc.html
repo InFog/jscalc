@@ -108,13 +108,16 @@
 	*	- Adicionada a imagem do ponto.
 	*	- Implementada a utilização do ponto para operações com casas decimais.
 	*
+	* Versão 0.11 - 20/10/2008
+	*	- Corrigido bug reportado pelo Peterson, fazendo, por exemplo, 3x5-2 ela resultava 3, agora resulta 13.
+	*
 	*********************** DESAFIO ***********************
 	* Implementar NPR (Notação Polonesa Reversa)
 	* http://pt.wikipedia.org/wiki/Notação_polonesa_reversa
 	* Idéia by Kretcheu - 04 de outubro de 2008
 	******************************************************/
 
-	var VERSAO = "0.10";
+	var VERSAO = "0.11";
 	var VISOR = "0"; // iniciando o visor como 0
 	var MEM1 = "0"; // variável que contém o que estava no visor antes de usar uma tecla de operação.
 	var OPERADOR = ""; // variável com o operador (+, -, / ou *)
@@ -168,6 +171,8 @@
 		* Ainda não tenho muita ideia de como ela
 		* vai funcionar.
                 *******************************************/
+		if (OPERADOR != '')
+			calcula_resultado();
 		MEM1 = VISOR;
 		VISOR = "0";
 		OPERADOR = oper;
@@ -248,6 +253,7 @@
 		var RESULTADO = eval(MEM1 + OPERADOR + VISOR);
 		VISOR = RESULTADO;
 		atualiza_visor();
+		OPERADOR = '';
 		APAGA_VISOR = true;
 		TEM_PONTO = false;
 	}
