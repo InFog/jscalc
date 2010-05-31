@@ -17,11 +17,17 @@
 
 #topo
 {
-        background-image: url(imagens/calc_top.jpg);
-        width: 264px;
-        height: 44px;
+    background-image: url(imagens/calc_top.jpg);
+    width: 264px;
+    height: 44px;
 	margin: 0px;
 	padding: 0px;
+}
+
+#logo
+{
+    margin: 0px auto;
+    text-align: center;
 }
 
 #teclas
