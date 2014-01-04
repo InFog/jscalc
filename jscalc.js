@@ -207,6 +207,9 @@ function atualiza_visor() {
         if (caractere == '.') {
             display += '<img src="imagens/ponto.png">';
         }
+        else if(caractere == '-'){
+            display += '<img src="imagens/menos.png">'
+        }
         else {
             display += '<img src="imagens/'+caractere+'.png">';
         }
