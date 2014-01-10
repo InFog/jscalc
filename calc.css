@@ -49,6 +49,11 @@
 	border: 0px;
 }
 
+area {
+  display: block;
+  cursor: pointer;
+}
+
 #display
 {
 	text-align: right;
